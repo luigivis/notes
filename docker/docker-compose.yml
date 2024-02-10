@@ -1,0 +1,17 @@
+version: '3.8'
+name: mysql-notes-db
+services:
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      - MYSQL_DATABASE=notes_db
+      - MYSQL_ROOT_PASSWORD=123456789*
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./script/database.sql:/docker-entrypoint-initdb.d/database.sql
+
+volumes:
+  test_vol:
+    driver: local
