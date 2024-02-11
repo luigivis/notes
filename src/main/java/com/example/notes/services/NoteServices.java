@@ -25,4 +25,12 @@ public class NoteServices {
     var save = notesRepository.save(new NotesEntity(notesCreateDto));
     return new StandardResponseDto(HttpStatus.CREATED, save);
   }
+
+  public StandardResponseDto getContentById(Long id) {
+    var content = notesRepository.getContentById(id);
+    if (content == null) {
+      return new StandardResponseDto(HttpStatus.NOT_FOUND);
+    }
+    return new StandardResponseDto(HttpStatus.OK, content);
+  }
 }
