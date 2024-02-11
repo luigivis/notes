@@ -35,7 +35,7 @@ public class NotesController {
 
     if (response.getHttpStatus().is2xxSuccessful()) {
       var headers = new HttpHeaders();
-      headers.setContentType(MediaType.TEXT_PLAIN);
+      headers.setContentType(MediaType.TEXT_HTML);
       return ResponseEntity.ok().headers(headers).body(response.getData());
     }
 
