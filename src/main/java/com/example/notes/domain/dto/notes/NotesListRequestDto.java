@@ -1,4 +1,4 @@
-package com.example.notes.dto.notes;
+package com.example.notes.domain.dto.notes;
 
 import java.util.Date;
 

@@ -5,7 +5,7 @@
  * @author com.example.notes.dto.generic
  * @version 1.0
  */
-package com.example.notes.dto.generic;
+package com.example.notes.domain.dto.generic;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;

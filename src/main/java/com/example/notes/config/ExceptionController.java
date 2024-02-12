@@ -1,6 +1,6 @@
 package com.example.notes.config;
 
-import com.example.notes.dto.generic.StandardResponseDto;
+import com.example.notes.domain.dto.generic.StandardResponseDto;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import static com.example.notes.dto.generic.StandardResponseDto.GenerateHttpResponse;
+import static com.example.notes.domain.dto.generic.StandardResponseDto.GenerateHttpResponse;
 
 @Controller
 public class ExceptionController implements ErrorController {

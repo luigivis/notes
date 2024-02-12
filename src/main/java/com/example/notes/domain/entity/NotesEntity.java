@@ -1,8 +1,8 @@
-package com.example.notes.entity;
+package com.example.notes.domain.entity;
 
-import com.example.notes.dto.notes.NotesCreateDto;
-import com.example.notes.dto.notes.NotesUpdateDto;
-import com.example.notes.entity.common.StandardTable;
+import com.example.notes.domain.dto.notes.NotesUpdateDto;
+import com.example.notes.domain.dto.notes.NotesCreateDto;
+import com.example.notes.domain.entity.common.StandardTable;
 import jakarta.persistence.*;
 import lombok.*;
 

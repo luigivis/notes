@@ -1,8 +1,8 @@
 package com.example.notes.controller;
 
-import com.example.notes.dto.generic.StandardResponseDto;
-import com.example.notes.dto.notes.NotesCreateDto;
-import com.example.notes.dto.notes.NotesUpdateDto;
+import com.example.notes.domain.dto.generic.StandardResponseDto;
+import com.example.notes.domain.dto.notes.NotesCreateDto;
+import com.example.notes.domain.dto.notes.NotesUpdateDto;
 import com.example.notes.services.NoteServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
@@ -12,7 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static com.example.notes.dto.generic.StandardResponseDto.GenerateHttpResponse;
+import static com.example.notes.domain.dto.generic.StandardResponseDto.GenerateHttpResponse;
 
 @RestController
 @RequestMapping("/api/v1/notes")

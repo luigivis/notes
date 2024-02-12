@@ -1,6 +1,6 @@
 package com.example.notes.config;
 
-import com.example.notes.dto.generic.StandardResponseDto;
+import com.example.notes.domain.dto.generic.StandardResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Objects;
 
-import static com.example.notes.dto.generic.StandardResponseDto.GenerateHttpResponse;
+import static com.example.notes.domain.dto.generic.StandardResponseDto.GenerateHttpResponse;
 
 @ControllerAdvice
 public class CustomExceptionHandler {
@@ -23,5 +24,11 @@ public class CustomExceptionHandler {
             HttpStatus.BAD_REQUEST.value(),
             Objects.requireNonNull(ex.getFieldError()).getDefaultMessage(),
             HttpStatus.BAD_REQUEST));
+  }
+
+  @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+  public ResponseEntity<StandardResponseDto> handleConflict(
+      SQLIntegrityConstraintViolationException ex, WebRequest webRequest) {
+    return GenerateHttpResponse(new StandardResponseDto(HttpStatus.CONFLICT));
   }
 }

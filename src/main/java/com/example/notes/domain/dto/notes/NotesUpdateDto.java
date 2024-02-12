@@ -1,4 +1,4 @@
-package com.example.notes.dto.notes;
+package com.example.notes.domain.dto.notes;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

@@ -1,7 +1,7 @@
 package com.example.notes.repository;
 
-import com.example.notes.dto.notes.NotesListRequestDto;
-import com.example.notes.entity.NotesEntity;
+import com.example.notes.domain.dto.notes.NotesListRequestDto;
+import com.example.notes.domain.entity.NotesEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

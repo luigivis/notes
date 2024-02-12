@@ -1,4 +1,4 @@
-package com.example.notes.entity.common;
+package com.example.notes.domain.entity.common;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
