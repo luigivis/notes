@@ -2,9 +2,11 @@ package com.example.notes.services;
 
 import com.example.notes.dto.generic.StandardResponseDto;
 import com.example.notes.dto.notes.NotesCreateDto;
+import com.example.notes.dto.notes.NotesUpdateDto;
 import com.example.notes.entity.NotesEntity;
 import com.example.notes.repository.NotesRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -32,5 +34,34 @@ public class NoteServices {
       return new StandardResponseDto(HttpStatus.NOT_FOUND);
     }
     return new StandardResponseDto(HttpStatus.OK, content);
+  }
+
+  public StandardResponseDto updateContentById(Long id, NotesUpdateDto notesUpdateDto) {
+    var response = notesRepository.findById(id);
+    if (response.isEmpty()) {
+      return new StandardResponseDto(HttpStatus.NOT_FOUND);
+    }
+    var entity = new NotesEntity(id, notesUpdateDto);
+    entity.setUserUuid(response.get().getUserUuid());
+    entity.setCreatedAt(response.get().getCreatedAt());
+    var update = notesRepository.save(entity);
+    return new StandardResponseDto(HttpStatus.OK, update);
+  }
+
+  public StandardResponseDto deleteNotesById(Long id) {
+    var response = notesRepository.findById(id);
+    if (response.isEmpty()) {
+      return new StandardResponseDto(HttpStatus.NOT_FOUND);
+    }
+    notesRepository.deleteById(id);
+    return new StandardResponseDto(HttpStatus.OK, response);
+  }
+
+  public StandardResponseDto listNotes() {
+    var response = notesRepository.listNotes();
+    if (response.isEmpty()) {
+      return new StandardResponseDto(HttpStatus.NOT_FOUND);
+    }
+    return new StandardResponseDto(HttpStatus.OK, response);
   }
 }

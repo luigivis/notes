@@ -1,6 +1,7 @@
 package com.example.notes.entity;
 
 import com.example.notes.dto.notes.NotesCreateDto;
+import com.example.notes.dto.notes.NotesUpdateDto;
 import com.example.notes.entity.common.StandardTable;
 import jakarta.persistence.*;
 import lombok.*;
@@ -42,5 +43,19 @@ public class NotesEntity extends StandardTable {
     this.userUuid = notesCreateDto.getUserUuid();
     this.share = false;
     this.setCreatedAt(new Date());
+  }
+
+  public NotesEntity(Long id, NotesUpdateDto notesUpdateDto) {
+    this.id = id;
+    this.title = notesUpdateDto.getTitle();
+    this.description = notesUpdateDto.getDescription();
+    this.content = notesUpdateDto.getContent();
+    this.share = false;
+    this.setUpdatedAt(new Date());
+  }
+
+  @PreUpdate
+  public void setUpdatedAt() {
+    this.setUpdatedAt(new Date());
   }
 }

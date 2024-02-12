@@ -2,6 +2,7 @@ package com.example.notes.controller;
 
 import com.example.notes.dto.generic.StandardResponseDto;
 import com.example.notes.dto.notes.NotesCreateDto;
+import com.example.notes.dto.notes.NotesUpdateDto;
 import com.example.notes.services.NoteServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
@@ -35,10 +36,29 @@ public class NotesController {
 
     if (response.getHttpStatus().is2xxSuccessful()) {
       var headers = new HttpHeaders();
-      headers.setContentType(MediaType.TEXT_HTML);
+      headers.setContentType(MediaType.TEXT_PLAIN);
       return ResponseEntity.ok().headers(headers).body(response.getData());
     }
 
     return ResponseEntity.status(response.getHttpStatus()).body(response);
+  }
+
+  @PutMapping("/update/{id}")
+  public ResponseEntity<StandardResponseDto> updateContentById(
+      @RequestBody NotesUpdateDto notesUpdateDto, @PathVariable Long id) {
+    var response = noteServices.updateContentById(id, notesUpdateDto);
+    return GenerateHttpResponse(response);
+  }
+
+  @DeleteMapping("/delete/{id}")
+  public ResponseEntity<StandardResponseDto> deleteNotesById(@PathVariable Long id) {
+    var response = noteServices.deleteNotesById(id);
+    return GenerateHttpResponse(response);
+  }
+
+  @GetMapping("/list")
+  public ResponseEntity<StandardResponseDto> listNotes() {
+    var response = noteServices.listNotes();
+    return GenerateHttpResponse(response);
   }
 }
