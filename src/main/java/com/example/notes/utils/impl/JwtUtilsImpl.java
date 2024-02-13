@@ -5,18 +5,16 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.xml.bind.DatatypeConverter;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
@@ -25,8 +23,8 @@ public class JwtUtilsImpl implements JwtUtils {
   @Value("${jwt.key}")
   private String secretKeyString;
 
-  @Value("${jwt.time.days.expiration}")
-  private Long timeDaysExpiration;
+  @Value("${jwt.time.hours.expiration}")
+  private Long timeHoursExpiration;
 
   @Override
   public SecretKey getKey() {
@@ -79,9 +77,10 @@ public class JwtUtilsImpl implements JwtUtils {
         .claims(claims)
         .subject(subject)
         .issuedAt(new Date(System.currentTimeMillis()))
-        .expiration(new Date(System.currentTimeMillis() + TimeUnit.DAYS.toDays(timeDaysExpiration)))
+        .expiration(new Date(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(timeHoursExpiration)))
         .signWith(getKey())
         .compact();
+    
   }
 
   @Override
