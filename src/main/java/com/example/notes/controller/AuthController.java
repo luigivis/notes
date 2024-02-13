@@ -1,21 +1,19 @@
 package com.example.notes.controller;
 
+import static com.example.notes.domain.dto.generic.StandardResponseDto.GenerateHttpResponse;
+
 import com.example.notes.domain.dto.auth.AuthCreateRequestDto;
 import com.example.notes.domain.dto.auth.AuthLoginRequestDto;
-import com.example.notes.domain.dto.auth.AuthLoginResponseDto;
 import com.example.notes.domain.dto.generic.StandardResponseDto;
 import com.example.notes.enums.HeadersEnum;
 import com.example.notes.services.AuthServices;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import static com.example.notes.domain.dto.generic.StandardResponseDto.GenerateHttpResponse;
 
 @RestController
 @RequestMapping("/api/v1/auth")

@@ -7,14 +7,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
-
-import static java.lang.StringTemplate.STR;
 
 @Slf4j
 @Service
@@ -30,20 +27,22 @@ public class TokenFilter implements Filter {
       throws IOException, ServletException {
 
     var httpSession = request.getSession();
+
     if (validUri(request.getRequestURI())) {
       filterChain.doFilter(servletRequest, servletResponse);
       return;
     }
 
-    if (httpSession.getAttribute(HeadersEnum.JWT.getValue()) == null) {
-      responseUnauthorized(servletResponse);
-      return;
-    }
-
-    var token = httpSession.getAttribute(HeadersEnum.JWT.getValue()).toString();
-    if (jwtUtils.isTokenExpired(token)) {
-      responseUnauthorized(servletResponse);
-    }
+    //if (httpSession.getAttribute(HeadersEnum.JWT.getValue()) == null) {
+    //  responseUnauthorized(servletResponse);
+    //  return;
+    //}
+//
+    //var token = httpSession.getAttribute(HeadersEnum.JWT.getValue()).toString();
+    //if (jwtUtils.isTokenExpired(token)) {
+    //  responseUnauthorized(servletResponse);
+    //  return;
+    //}
     filterChain.doFilter(servletRequest, servletResponse);
   }
 
