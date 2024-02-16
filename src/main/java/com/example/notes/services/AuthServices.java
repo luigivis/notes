@@ -33,7 +33,7 @@ public class AuthServices {
   public StandardResponseDto login(AuthLoginRequestDto authLoginRequestDto) {
     var httpSession = request.getSession();
     var user = userRepository.findByUsername(authLoginRequestDto.getUsername());
-    if (user == null) return new StandardResponseDto(HttpStatus.NOT_FOUND);
+    if (user == null) return new StandardResponseDto(HttpStatus.UNAUTHORIZED);
     if (!BCrypt.checkpw(authLoginRequestDto.getPassword(), user.getPassword())){
       return new StandardResponseDto(HttpStatus.UNAUTHORIZED);
     }

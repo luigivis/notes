@@ -9,7 +9,7 @@ Content-Type: application/json
   "title": "string",
   "description": "string",
   "content": "string",
-  "userUuid": "8e3c91c8-cc78-11ee-afb6-0242ac150002"
+  "userUuid": "e7a708e7-cc7c-11ee-b3a0-0242ac160002"
 }
 
 ### Get Post
