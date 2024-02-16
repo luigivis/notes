@@ -7,6 +7,9 @@ import com.example.notes.services.NoteServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +21,13 @@ import static com.example.notes.domain.dto.generic.StandardResponseDto.GenerateH
 @RequestMapping("/api/v1/notes")
 public class NotesController {
 
-  @Autowired private ObjectMapper objectMapper;
-
   @Autowired private NoteServices noteServices;
+
+  @GetMapping("/list")
+  public ResponseEntity<StandardResponseDto> listNotes() {
+    var response = noteServices.listNotes();
+    return GenerateHttpResponse(response);
+  }
 
   @PostMapping("/create")
   public ResponseEntity<StandardResponseDto> createNote(
@@ -30,6 +37,7 @@ public class NotesController {
   }
 
   @GetMapping("/get/{id}/content")
+  @Cacheable(value = "notes-get", key = "#id")
   public ResponseEntity<Object> getContentById(@PathVariable Long id) {
 
     var response = noteServices.getContentById(id);
@@ -44,6 +52,7 @@ public class NotesController {
   }
 
   @PutMapping("/update/{id}")
+  @CachePut(value = "notes-get", key = "#id")
   public ResponseEntity<StandardResponseDto> updateContentById(
       @RequestBody NotesUpdateDto notesUpdateDto, @PathVariable Long id) {
     var response = noteServices.updateContentById(id, notesUpdateDto);
@@ -51,14 +60,9 @@ public class NotesController {
   }
 
   @DeleteMapping("/delete/{id}")
+  @CacheEvict(value = "notes-get", key = "#id")
   public ResponseEntity<StandardResponseDto> deleteNotesById(@PathVariable Long id) {
     var response = noteServices.deleteNotesById(id);
-    return GenerateHttpResponse(response);
-  }
-
-  @GetMapping("/list")
-  public ResponseEntity<StandardResponseDto> listNotes() {
-    var response = noteServices.listNotes();
     return GenerateHttpResponse(response);
   }
 }

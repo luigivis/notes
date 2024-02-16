@@ -1,0 +1,14 @@
+### Send POST request with json body
+POST http://localhost:5010/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "string",
+  "password": "string"
+}
+
+### Get Post
+GET http://localhost:5010/api/v1/auth/valid
+
+### Logout
+GET http://localhost:5010/api/v1/auth/logout

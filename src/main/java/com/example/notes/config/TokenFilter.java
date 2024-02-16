@@ -33,16 +33,16 @@ public class TokenFilter implements Filter {
       return;
     }
 
-    //if (httpSession.getAttribute(HeadersEnum.JWT.getValue()) == null) {
-    //  responseUnauthorized(servletResponse);
-    //  return;
-    //}
-//
-    //var token = httpSession.getAttribute(HeadersEnum.JWT.getValue()).toString();
-    //if (jwtUtils.isTokenExpired(token)) {
-    //  responseUnauthorized(servletResponse);
-    //  return;
-    //}
+    if (httpSession.getAttribute(HeadersEnum.JWT.getValue()) == null) {
+      responseUnauthorized(servletResponse);
+      return;
+    }
+
+    var token = httpSession.getAttribute(HeadersEnum.JWT.getValue()).toString();
+    if (jwtUtils.isTokenExpired(token)) {
+      responseUnauthorized(servletResponse);
+      return;
+    }
     filterChain.doFilter(servletRequest, servletResponse);
   }
 

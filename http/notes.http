@@ -1,0 +1,20 @@
+### Logout
+GET http://localhost:5010/api/v1/auth/logout
+
+### Create notes with json body
+POST http://localhost:5010/api/v1/notes/create
+Content-Type: application/json
+
+{
+  "title": "string",
+  "description": "string",
+  "content": "string",
+  "userUuid": "8e3c91c8-cc78-11ee-afb6-0242ac150002"
+}
+
+### Get Post
+GET http://localhost:5010/api/v1/notes/list
+
+### Find Content by Id
+@id = 2
+GET http://localhost:5010/api/v1/notes/get/{{id}}/content

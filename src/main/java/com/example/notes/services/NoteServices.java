@@ -4,7 +4,6 @@ import com.example.notes.domain.dto.generic.StandardResponseDto;
 import com.example.notes.domain.dto.notes.NotesCreateDto;
 import com.example.notes.domain.dto.notes.NotesUpdateDto;
 import com.example.notes.domain.entity.NotesEntity;
-import com.example.notes.enums.HeadersEnum;
 import com.example.notes.repository.NotesRepository;
 import com.example.notes.utils.impl.JwtUtilsImpl;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +18,7 @@ public class NoteServices {
   @Autowired private HttpServletRequest request;
   @Autowired private NotesRepository notesRepository;
   @Autowired private JwtUtilsImpl jwtUtils;
-
+  
   public StandardResponseDto createNote(NotesCreateDto notesCreateDto) {
     if (notesCreateDto.getDescription() == null) {
       notesCreateDto.setDescription(
