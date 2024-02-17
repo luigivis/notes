@@ -24,6 +24,11 @@ services:
     depends_on:
       - mysql
 
+  notes-app:
+    image: openjdk:21
+    command: java -jar /target/notes-0.1.jar
+
+
 volumes:
   test_vol:
     driver: local

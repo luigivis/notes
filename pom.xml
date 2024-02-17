@@ -12,9 +12,9 @@
 
     <groupId>com.nicascript</groupId>
     <artifactId>notes</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>demo</name>
-    <description>demo</description>
+    <version>0.1</version>
+    <name>notes</name>
+    <description>Notes With Login </description>
 
     <properties>
         <java.version>21</java.version>
