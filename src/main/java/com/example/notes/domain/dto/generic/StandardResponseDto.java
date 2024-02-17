@@ -16,13 +16,19 @@ import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 /** A data transfer object for standard API responses. */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class StandardResponseDto {
+public class StandardResponseDto implements Serializable {
+
+  @Serial
+  private static final long serialVersionUID = 4953953237197977686L;
 
   /** The numeric status code representing the outcome of the API request. */
   private int code;

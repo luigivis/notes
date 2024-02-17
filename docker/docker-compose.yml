@@ -17,13 +17,10 @@ services:
     restart: always
     ports:
       - "6379:6379"
-    volumes:
-      - /path/to/local/dаta:/root/redis
-      - /path/to/local/redis.conf:/usr/local/etc/redis/redis.conf
     environment:
       - REDIS_PASSWORD=123456789*
       - REDIS_PORT=6379
-      - REDIS_DATABASES=16
+      - REDIS_DATABASES=1
     depends_on:
       - mysql
 

@@ -1,8 +1,9 @@
 package com.example.notes.domain.dto.notes;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public interface NotesListRequestDto {
+public interface NotesListRequestDto extends Serializable {
   String getId();
 
   String getTitle();

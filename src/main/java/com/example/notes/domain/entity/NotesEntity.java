@@ -3,9 +3,12 @@ package com.example.notes.domain.entity;
 import com.example.notes.domain.dto.notes.NotesUpdateDto;
 import com.example.notes.domain.dto.notes.NotesCreateDto;
 import com.example.notes.domain.entity.common.StandardTable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
@@ -15,7 +18,10 @@ import java.util.Date;
 @Builder
 @Entity
 @Table(name = "notes")
-public class NotesEntity extends StandardTable {
+public class NotesEntity extends StandardTable implements Serializable {
+  @Serial
+  private static final long serialVersionUID = 4354024332827672261L;
+
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
   @Column(name = "id")
@@ -27,6 +33,7 @@ public class NotesEntity extends StandardTable {
   @Column(name = "description")
   private String description;
 
+  @JsonIgnore
   @Column(name = "content")
   private String content;
 
