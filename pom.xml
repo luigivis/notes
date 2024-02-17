@@ -19,6 +19,7 @@
     <properties>
         <java.version>21</java.version>
         <jwt-version>0.12.5</jwt-version>
+        <microservice.port>5010</microservice.port>
     </properties>
 
     <dependencies>
@@ -108,6 +109,48 @@
                     <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>
+            <!-- Generate Run DockerContainer -->
+            <plugin>
+                <groupId>ru.yaal.maven</groupId>
+                <artifactId>write-text-files-maven-plugin</artifactId>
+                <version>1.1</version>
+                <configuration>
+                    <charset>UTF-8</charset>
+                    <files>
+                        <file>
+                            <path>Dockerfile</path>
+                            <lines>
+                                <line>FROM openjdk:21</line>
+                                <line>MAINTAINER Luigi Vismara luigivis98@gmail.com</line>
+
+                                <line>COPY target/${project.artifactId}-${project.version}.jar ${project.name}.jar</line>
+                                <line>CMD ["java", "-jar", "${project.name}.jar"]</line>
+                                <line>EXPOSE ${microservice.port}</line>
+                            </lines>
+                        </file>
+                        <file>
+                            <path>${project.name}.sh</path>
+                            <lines>
+                                <line>docker stop ${project.name}</line>
+                                <line>docker rm ${project.name}</line>
+                                <line>docker build . -t ${project.name}</line>
+                                <line>cd docker/</line>
+                                <line>docker compose up -d</line>
+                            </lines>
+                        </file>
+                    </files>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>write-text-files</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>write-text-files</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 

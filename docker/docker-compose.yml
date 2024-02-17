@@ -25,9 +25,11 @@ services:
       - mysql
 
   notes-app:
-    image: openjdk:21
-    command: java -jar /target/notes-0.1.jar
-
+    image: notes
+    depends_on:
+      - mysql
+      - redis
+    network_mode: "host"
 
 volumes:
   test_vol:
