@@ -23,8 +23,7 @@ import static com.example.notes.domain.dto.generic.StandardResponseDto.GenerateH
 @RequestMapping("/api/v1/notes")
 public class NotesController implements Serializable {
 
-  @Serial
-  private static final long serialVersionUID = 4740984250062398249L;
+  @Serial private static final long serialVersionUID = 4740984250062398249L;
 
   @Autowired private NoteServices noteServices;
 
@@ -41,10 +40,10 @@ public class NotesController implements Serializable {
     return GenerateHttpResponse(response);
   }
 
-  @GetMapping("/get/{id}/content")
-  public ResponseEntity<Object> getContentById(@PathVariable Long id) {
+  @GetMapping("/get/{uuid}/content")
+  public ResponseEntity<Object> getContentById(@PathVariable String uuid) {
 
-    var response = noteServices.getContentById(id);
+    var response = noteServices.getContentById(uuid);
 
     if (response.getHttpStatus().is2xxSuccessful()) {
       var headers = new HttpHeaders();
@@ -55,16 +54,16 @@ public class NotesController implements Serializable {
     return ResponseEntity.status(response.getHttpStatus()).body(response);
   }
 
-  @PutMapping("/update/{id}")
+  @PutMapping("/update/{uuid}")
   public ResponseEntity<StandardResponseDto> updateContentById(
-      @RequestBody NotesUpdateDto notesUpdateDto, @PathVariable Long id) {
-    var response = noteServices.updateContentById(id, notesUpdateDto);
+      @RequestBody NotesUpdateDto notesUpdateDto, @PathVariable String uuid) {
+    var response = noteServices.updateContentById(uuid, notesUpdateDto);
     return GenerateHttpResponse(response);
   }
 
-  @DeleteMapping("/delete/{id}")
-  public ResponseEntity<StandardResponseDto> deleteNotesById(@PathVariable Long id) {
-    var response = noteServices.deleteNotesById(id);
+  @DeleteMapping("/delete/{uuid}")
+  public ResponseEntity<StandardResponseDto> deleteNotesById(@PathVariable String uuid) {
+    var response = noteServices.deleteNotesById(uuid);
     return GenerateHttpResponse(response);
   }
 }

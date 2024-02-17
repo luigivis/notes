@@ -38,41 +38,42 @@ public class NoteServices {
     return new StandardResponseDto(HttpStatus.CREATED, save);
   }
 
-  @Cacheable(value = "notes-get", key = "#id")
-  public StandardResponseDto getContentById(Long id) {
-    var content = notesRepository.getContentById(id);
+  @Cacheable(value = "notes-get", key = "#uuid")
+  public StandardResponseDto getContentById(String uuid) {
+    var content = notesRepository.getContentById(uuid);
     if (content == null) {
       return new StandardResponseDto(HttpStatus.NOT_FOUND);
     }
     return new StandardResponseDto(HttpStatus.OK, content);
   }
 
-  @CachePut(value = "notes-get", key = "#id")
-  public StandardResponseDto updateContentById(Long id, NotesUpdateDto notesUpdateDto) {
-    var response = notesRepository.findById(id);
+  @CachePut(value = "notes-get", key = "#uuid")
+  public StandardResponseDto updateContentById(String uuid, NotesUpdateDto notesUpdateDto) {
+    var response = notesRepository.findById(uuid);
     if (response.isEmpty()) {
       return new StandardResponseDto(HttpStatus.NOT_FOUND);
     }
-    var entity = new NotesEntity(id, notesUpdateDto);
+    var entity = new NotesEntity(uuid, notesUpdateDto);
     entity.setUserUuid(response.get().getUserUuid());
     entity.setCreatedAt(response.get().getCreatedAt());
     var update = notesRepository.save(entity);
     return new StandardResponseDto(HttpStatus.OK, update);
   }
 
-  @CacheEvict(value = "notes-get", key = "#id")
-  public StandardResponseDto deleteNotesById(Long id) {
-    var response = notesRepository.findById(id);
+  @CacheEvict(value = "notes-get", key = "#uuid")
+  public StandardResponseDto deleteNotesById(String uuid) {
+    var response = notesRepository.findById(uuid);
     if (response.isEmpty()) {
       return new StandardResponseDto(HttpStatus.NOT_FOUND);
     }
-    notesRepository.deleteById(id);
+    notesRepository.deleteById(uuid);
     return new StandardResponseDto(HttpStatus.OK, response);
   }
 
-  @Cacheable("listNotes")
   public StandardResponseDto listNotes() {
-    var response = notesRepository.listNotes();
+    var httpSession = request.getSession();
+    var userUuid = httpSession.getAttribute(SessionEnum.USER_UUID.name()).toString();
+    var response = notesRepository.listNotes(userUuid);
     if (response.isEmpty()) {
       return new StandardResponseDto(HttpStatus.NOT_FOUND);
     }

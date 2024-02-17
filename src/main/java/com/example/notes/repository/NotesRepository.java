@@ -6,13 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface NotesRepository extends JpaRepository<NotesEntity, Long> {
+public interface NotesRepository extends JpaRepository<NotesEntity, String> {
 
-  @Query(
-      value = "select * from notes",
-      nativeQuery = true)
-  List<NotesEntity> listNotes();
+  @Query(value = "select * from notes WHERE user_uuid = ?", nativeQuery = true)
+  List<NotesEntity> listNotes(String userUuid);
 
-  @Query(value = "select content from notes where id = ?", nativeQuery = true)
-  String getContentById(Long id);
+  @Query(value = "select content from notes where uuid = ?", nativeQuery = true)
+  String getContentById(String uuid);
 }

@@ -18,7 +18,7 @@ public class UsersEntity extends StandardTable implements Serializable {
   @Serial
   private static final long serialVersionUID = 2309636893737196450L;
 
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.UUID)
   @Id
   @Column(name = "uuid")
   private String uuid;
