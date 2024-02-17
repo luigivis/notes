@@ -10,19 +10,14 @@ import java.io.Serializable;
 @Data
 public class NotesCreateDto implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 3948281839799747391L;
+  @Serial private static final long serialVersionUID = 3948281839799747391L;
 
-    @Size(max = 50, message = "The title max size is reached")
-    @NotBlank(message = "The title can't be null")
-    private String title;
+  @Size(max = 50, message = "The title max size is reached")
+  @NotBlank(message = "The title can't be null")
+  private String title;
 
-    private String description;
+  private String description;
 
-    @NotBlank(message = "The content can't be null")
-    private String content;
-
-    @Size(max = 36, message = "The userUuid max size is reached")
-    @NotBlank(message = "The userUuid can't be null")
-    private String userUuid;
+  @NotBlank(message = "The content can't be null")
+  private String content;
 }

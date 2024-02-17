@@ -7,7 +7,7 @@
 <li> Redoc </li>
 <li> JWT</li>
 <li> bCrypt</li>
-<li> Mysql</li>
+<li> Mysql</li> 
 <li> Redis</li>
 <li> Docker</li>
 <li> Docker Compose</li>

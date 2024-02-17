@@ -6,6 +6,7 @@ import com.example.notes.domain.dto.auth.AuthLoginResponseDto;
 import com.example.notes.domain.dto.generic.StandardResponseDto;
 import com.example.notes.domain.entity.common.StandardTable;
 import com.example.notes.enums.HeadersEnum;
+import com.example.notes.enums.SessionEnum;
 import com.example.notes.repository.UserRepository;
 import com.example.notes.utils.impl.JwtUtilsImpl;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,11 +35,12 @@ public class AuthServices {
     var httpSession = request.getSession();
     var user = userRepository.findByUsername(authLoginRequestDto.getUsername());
     if (user == null) return new StandardResponseDto(HttpStatus.UNAUTHORIZED);
-    if (!BCrypt.checkpw(authLoginRequestDto.getPassword(), user.getPassword())){
+    if (!BCrypt.checkpw(authLoginRequestDto.getPassword(), user.getPassword())) {
       return new StandardResponseDto(HttpStatus.UNAUTHORIZED);
     }
     var token = jwtUtils.generateToken(user.getUsername());
     httpSession.setAttribute(HeadersEnum.JWT.getValue(), token);
+    httpSession.setAttribute(SessionEnum.USER_UUID.name(), user.getUuid());
     return new StandardResponseDto(HttpStatus.OK, token);
   }
 }

@@ -47,7 +47,6 @@ public class NotesEntity extends StandardTable implements Serializable {
     this.title = notesCreateDto.getTitle();
     this.description = notesCreateDto.getDescription();
     this.content = notesCreateDto.getContent();
-    this.userUuid = notesCreateDto.getUserUuid();
     this.share = false;
     this.setCreatedAt(new Date());
   }
