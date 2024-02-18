@@ -50,7 +50,8 @@ public class TokenFilter implements Filter {
     return uri.contains("/api/v1/auth")
         || uri.contains("swagger-ui")
         || uri.contains("/v3/api-docs")
-        || uri.equals("/favicon.ico");
+        || uri.equals("/favicon.ico")
+        || uri.contains("/api/v1/notes/get/content/");
   }
 
   private void responseUnauthorized(ServletResponse servletResponse) throws IOException {

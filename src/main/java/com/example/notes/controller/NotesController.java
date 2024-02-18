@@ -6,9 +6,6 @@ import com.example.notes.domain.dto.notes.NotesUpdateDto;
 import com.example.notes.services.NoteServices;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +37,7 @@ public class NotesController implements Serializable {
     return GenerateHttpResponse(response);
   }
 
-  @GetMapping("/get/{uuid}/content")
+  @GetMapping("/get/content/{uuid}")
   public ResponseEntity<Object> getContentById(@PathVariable String uuid) {
 
     var response = noteServices.getContentById(uuid);
@@ -65,5 +62,11 @@ public class NotesController implements Serializable {
   public ResponseEntity<StandardResponseDto> deleteNotesById(@PathVariable String uuid) {
     var response = noteServices.deleteNotesById(uuid);
     return GenerateHttpResponse(response);
+  }
+
+  @PutMapping("/change/status/{uuid}")
+  public  ResponseEntity<StandardResponseDto>changeStatusShare(@PathVariable String uuid){
+    var response = noteServices.changeStatusShare(uuid);
+    return  GenerateHttpResponse(response);
   }
 }

@@ -11,6 +11,9 @@ public interface NotesRepository extends JpaRepository<NotesEntity, String> {
   @Query(value = "select * from notes WHERE user_uuid = ?", nativeQuery = true)
   List<NotesEntity> listNotes(String userUuid);
 
-  @Query(value = "select content from notes where uuid = ?", nativeQuery = true)
-  String getContentById(String uuid);
+  @Query(value = "select * from notes WHERE uuid = ? and user_uuid = ?", nativeQuery = true)
+  NotesEntity findNoteByUuidAndUserUuid(String uuid, String userUuid);
+
+  @Query(value = "select * from notes WHERE uuid = ?", nativeQuery = true)
+  NotesEntity findNoteByUuid(String uuid);
 }
