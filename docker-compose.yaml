@@ -1,0 +1,36 @@
+version: '3.8'
+name: notes-infra
+services:
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      - MYSQL_DATABASE=notes_db
+      - MYSQL_ROOT_PASSWORD=123456789*
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./docker/script/database.sql:/docker-entrypoint-initdb.d/database.sql
+
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=123456789*
+      - REDIS_PORT=6379
+      - REDIS_DATABASES=1
+    depends_on:
+      - mysql
+
+  notes-app:
+    image: notes
+    depends_on:
+      - mysql
+      - redis
+    network_mode: "host"
+
+volumes:
+  test_vol:
+    driver: local
