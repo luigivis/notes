@@ -11,7 +11,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
@@ -60,7 +59,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-#scripdevops
-*.sh
-Dockerfile
