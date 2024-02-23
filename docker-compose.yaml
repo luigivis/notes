@@ -29,7 +29,6 @@ services:
     depends_on:
       - mysql
       - redis
-    network_mode: "host"
 
 volumes:
   test_vol:
